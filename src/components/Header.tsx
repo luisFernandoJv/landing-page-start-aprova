@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Flame, Shield } from "lucide-react";
+import { Flame } from "lucide-react";
 import { trackEvent } from "../App";
 
 export function Header() {

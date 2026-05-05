@@ -1,11 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  Rocket,
-  ClipboardList,
-  ArrowRight,
-  MessageCircle,
-  Sparkles,
-} from "lucide-react";
+import { Rocket, ClipboardList, ArrowRight, Sparkles } from "lucide-react";
 import { trackEvent } from "../App";
 
 const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
