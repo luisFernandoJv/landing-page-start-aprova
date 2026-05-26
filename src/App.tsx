@@ -1,106 +1,96 @@
+// App.tsx — Start Aprovação
+// Arquitetura limpa: cada seção tem responsabilidade única,
+// layout max-w-6xl centrado, sem poluição visual
+
 import { Navigation } from "./components/Navigation";
-import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
-import { AboutSection } from "./components/AboutSection";
-import { WhatsAppGroups } from "./components/WhatsAppGroups";
-import { PriceCard } from "./components/PriceCard";
 import { Benefits } from "./components/Benefits";
+import { AboutSection } from "./components/AboutSection";
 import { CurriculumSection } from "./components/CurriculumSection";
 import { Testimonials } from "./components/Testimonials";
-import { ContactSection } from "./components/ContactSection";
+import { PriceCard } from "./components/PriceCard";
+import { WhatsAppGroups } from "./components/WhatsAppGroups";
 import { CtaFinal } from "./components/CtaFinal";
+import { ContactSection } from "./components/ContactSection";
 import { Footer } from "./components/Footer";
 import { FloatingCta } from "./components/FloatingCta";
 import { BackgroundEffects } from "./components/BackgroundEffects";
 
-export const trackEvent = (
-  eventName: string,
-  eventData?: Record<string, unknown>,
-) => {
-  // Ready for analytics integration (GA4, Mixpanel, etc.)
-  if (typeof window !== "undefined") {
-    if (import.meta.env.DEV) {
-      console.log("[Analytics]", eventName, eventData);
+// ── Analytics helper ──────────────────────────────────────
+export function trackEvent(name: string, props?: Record<string, unknown>) {
+  try {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", name, props);
     }
+    if (import.meta.env.DEV) {
+      console.log(`[track] ${name}`, props);
+    }
+  } catch {
+    // silently fail — never break the UI
   }
-};
+}
 
-function App() {
+// ── App ───────────────────────────────────────────────────
+export default function App() {
   return (
-    <div className="relative min-h-screen">
-      {/* Background Effects */}
+    <div style={{ minHeight: "100vh", position: "relative" }}>
+      {/* Ambient background effects — fixed, behind everything */}
       <BackgroundEffects />
 
-      {/* Navigation */}
+      {/* Sticky navigation */}
       <Navigation />
 
-      {/* Main Content */}
-      <main className="relative z-10 px-4 pt-24 pb-28 md:pt-28 md:pb-36 lg:pt-32 lg:pb-40">
-        {/* Hero & Header - Full width on larger screens */}
-        <div className="max-w-7xl mx-auto">
-          {/* Section: Início */}
-          <section id="inicio" className="scroll-mt-24">
-            <Header />
+      {/* ── Main content ── */}
+      <main style={{ position: "relative", zIndex: 1 }}>
+        {/* 1. Hero — headline + carrossel + CTA primário */}
+        <HeroSection />
 
-            {/* Desktop: Two column layout for hero area */}
-            <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-12 lg:items-start">
-              {/* Left Column: Hero + WhatsApp */}
-              <div>
-                <HeroSection />
-                <div className="lg:hidden">
-                  <WhatsAppGroups />
-                </div>
-              </div>
+        {/* 2. Benefícios — o que o aluno ganha */}
+        <Benefits />
 
-              {/* Right Column: Price + WhatsApp (desktop) + Benefits */}
-              <div>
-                <PriceCard />
-                <div className="hidden lg:block">
-                  <WhatsAppGroups />
-                </div>
-              </div>
-            </div>
+        {/* 3. Sobre o Método — credibilidade + diferenciais */}
+        <AboutSection />
 
-            {/* Benefits - Full width with better grid on desktop */}
-            <div className="mt-6 lg:mt-10">
-              <Benefits />
-            </div>
-          </section>
+        {/* 4. Grade Curricular — o que é ensinado */}
+        <CurriculumSection />
 
-          {/* Two column layout for about and curriculum on desktop */}
-          <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-12 lg:items-start mt-8 lg:mt-12">
-            {/* Section: Sobre */}
-            <AboutSection />
+        {/* 5. Preço — investimento + CTA de conversão */}
+        <PriceCard />
 
-            {/* Section: Conteúdo */}
-            <CurriculumSection />
-          </div>
+        {/* 6. Depoimentos — prova social */}
+        <Testimonials />
 
-          {/* Testimonials and Contact - Two columns on desktop */}
-          <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-12 lg:items-start mt-8 lg:mt-12">
-            {/* Section: Depoimentos */}
-            <section id="depoimentos" className="scroll-mt-24">
-              <Testimonials />
-            </section>
+        {/* 7. WhatsApp Groups — comunidade */}
+        <WhatsAppGroups />
 
-            {/* Section: Contato */}
-            <ContactSection />
-          </div>
+        {/* 8. CTA Final — urgência + conversão */}
+        <CtaFinal />
 
-          {/* Final CTA - Centered, max width for readability */}
-          <div className="max-w-2xl mx-auto mt-8 lg:mt-12">
-            <CtaFinal />
-          </div>
-
-          {/* Footer - Full width */}
-          <Footer />
-        </div>
+        {/* 9. Contato — canais de comunicação */}
+        <ContactSection />
       </main>
 
-      {/* Floating CTA */}
+      {/* Footer */}
+      <Footer />
+
+      {/* Floating CTA — aparece após scroll */}
       <FloatingCta />
     </div>
   );
 }
 
-export default App;
+/*
+  ── ORDEM DE SEÇÕES (estratégia de conversão) ──────────────
+  Hero          → Captura atenção + CTA imediato
+  Benefits      → "O que eu ganho?" — valor percebido
+  About/Method  → "Por que vocês?" — credibilidade
+  Curriculum    → "O que vou aprender?" — detalhe
+  PriceCard     → Ancoragem de preço + CTA de conversão
+  Testimonials  → Prova social + quebra de objeção
+  WhatsApp      → Engajamento imediato na comunidade
+  CtaFinal      → Urgência + última chamada
+  Contact       → Dúvidas e localização física
+
+  Regra: o visitante decide comprar entre Benefits e PriceCard.
+  O restante elimina objeções residuais.
+*/

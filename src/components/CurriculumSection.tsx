@@ -6,234 +6,202 @@ import {
   FileText,
   ChevronRight,
   Clock,
-  Star,
 } from "lucide-react";
 
 const subjects = [
   {
     name: "Língua Portuguesa",
+    subtitle: "Raio-X das Bancas",
     icon: FileText,
-    color: "var(--color-primary)",
+    hue: "36,100%,54%",
     topics: [
-      "Interpretação de Texto",
-      "Gramática e Ortografia",
-      "Redação Oficial",
-      "Coesão e Coerência",
+      "Interpretação Avançada",
+      "Morfossintaxe Focada",
+      "Reescrita de Frases",
+      "Gabarito das Bancas",
     ],
     hours: "40h",
   },
   {
     name: "Raciocínio Lógico",
+    subtitle: "Matemático",
     icon: Calculator,
-    color: "var(--color-accent-blue)",
+    hue: "213,90%,60%",
     topics: [
       "Lógica Proposicional",
-      "Sequências Lógicas",
       "Análise Combinatória",
       "Probabilidade",
+      "Matemática Frequente",
     ],
     hours: "30h",
   },
   {
-    name: "Conhecimentos Gerais",
+    name: "Conhecimentos Estratégicos",
+    subtitle: "Direito & Atualidades",
     icon: Globe,
-    color: "var(--color-success)",
+    hue: "145,60%,45%",
     topics: [
-      "Atualidades",
-      "Geografia do Brasil",
-      "História Geral",
-      "Meio Ambiente",
+      "Atualidades e Redação",
+      "Direito Constitucional",
+      "Direito Administrativo",
+      "Ética no Serviço Público",
     ],
-    hours: "25h",
+    hours: "40h",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 25, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
+const fade = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export function CurriculumSection() {
   return (
-    <section id="conteudo" className="mb-8 lg:mb-0 scroll-mt-24">
-      {/* Section Header */}
+    <section
+      id="conteudo"
+      className="py-20 px-4 sm:px-6 max-w-6xl mx-auto scroll-mt-20"
+    >
+      {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="text-center mb-5 sm:mb-6"
-      >
-        <motion.div
-          className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass mb-3"
-          whileHover={{ scale: 1.03 }}
-          transition={{ type: "spring", stiffness: 400 }}
-        >
-          <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[hsl(var(--color-primary))]" />
-          <span className="text-[10px] sm:text-xs font-bold text-[hsl(var(--color-primary))] uppercase tracking-wider">
-            Conteúdo Programático
-          </span>
-        </motion.div>
-        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black text-white text-balance mb-2">
-          O que você vai <span className="gradient-text">aprender</span>
-        </h2>
-        <p className="text-xs sm:text-sm text-[hsl(var(--color-foreground-muted))] max-w-md mx-auto">
-          Grade completa focada no edital do IGECAP, com professores
-          especialistas em cada área.
-        </p>
-      </motion.div>
-
-      {/* Total Hours Badge */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, type: "spring", stiffness: 300 }}
-        className="flex justify-center mb-5 sm:mb-6"
-      >
-        <motion.div
-          className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl glass-strong"
-          whileHover={{ scale: 1.02, y: -2 }}
-          transition={{ type: "spring", stiffness: 400 }}
-        >
-          <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--color-primary))]" />
-          <div>
-            <span className="block text-base sm:text-lg font-black text-white">
-              +130 horas
-            </span>
-            <span className="text-[10px] sm:text-xs text-[hsl(var(--color-foreground-muted))]">
-              de conteúdo total
-            </span>
-          </div>
-          <div className="w-px h-6 sm:h-8 bg-white/10 mx-1 sm:mx-2" />
-          <div className="flex items-center gap-1 sm:gap-1.5">
-            <Star
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[hsl(var(--color-warning))]"
-              fill="currentColor"
-            />
-            <span className="text-xs sm:text-sm font-bold text-[hsl(var(--color-warning))]">
-              100% atualizado
-            </span>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Subjects Grid */}
-      <motion.div
-        variants={containerVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        className="space-y-3 sm:space-y-4"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={fade}
+        className="mb-12"
       >
-        {subjects.map((subject, index) => {
-          const IconComponent = subject.icon;
-          return (
-            <motion.div
-              key={subject.name}
-              variants={itemVariants}
-              className="glass-strong rounded-xl sm:rounded-2xl p-4 sm:p-5 lg:p-6 group cursor-default"
-              whileHover={{
-                y: -4,
-                scale: 1.01,
-                transition: { type: "spring", stiffness: 400, damping: 17 },
-              }}
-              custom={index}
-            >
-              {/* Subject Header */}
-              <div className="flex items-center justify-between mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-white/10">
-                <div className="flex items-center gap-2.5 sm:gap-3">
-                  <motion.div
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center"
-                    style={{
-                      background: `linear-gradient(135deg, hsla(${subject.color}, 0.2) 0%, hsla(${subject.color}, 0.05) 100%)`,
-                      border: `1px solid hsla(${subject.color}, 0.25)`,
-                    }}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    <IconComponent
-                      className="w-4 h-4 sm:w-5 sm:h-5"
-                      style={{ color: `hsl(${subject.color})` }}
-                    />
-                  </motion.div>
-                  <h3 className="text-sm sm:text-base font-bold text-white">
-                    {subject.name}
-                  </h3>
-                </div>
-                <motion.div
-                  className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold"
+        <div className="tag mb-5">Grade Curricular</div>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <h2
+            className="text-3xl sm:text-4xl font-extrabold text-white"
+            style={{
+              fontFamily: "var(--font-display)",
+              letterSpacing: "-0.03em",
+            }}
+          >
+            O núcleo duro da sua{" "}
+            <span className="gradient-text">Aprovação</span>
+          </h2>
+
+          {/* Total hours badge */}
+          <div
+            className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg self-start sm:self-auto flex-shrink-0"
+            style={{
+              background: "hsl(220,14%,9%)",
+              border: "1px solid hsl(220,10%,16%)",
+            }}
+          >
+            <Clock size={16} style={{ color: "hsl(36,100%,54%)" }} />
+            <div>
+              <span
+                className="block text-lg font-extrabold text-white"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                +110h
+              </span>
+              <span className="text-xs" style={{ color: "hsl(220,10%,58%)" }}>
+                de conteúdo
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Subjects */}
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: { transition: { staggerChildren: 0.1 } },
+        }}
+        className="space-y-4"
+      >
+        {subjects.map(({ name, subtitle, icon: Icon, hue, topics, hours }) => (
+          <motion.div key={name} variants={fade} className="card p-6 sm:p-7">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-4">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{
-                    background: `hsla(${subject.color}, 0.1)`,
-                    color: `hsl(${subject.color})`,
+                    background: `hsla(${hue}, 0.1)`,
+                    border: `1px solid hsla(${hue}, 0.2)`,
                   }}
-                  whileHover={{ scale: 1.05 }}
                 >
-                  {subject.hours}
-                </motion.div>
+                  <Icon size={20} style={{ color: `hsl(${hue})` }} />
+                </div>
+                <div>
+                  <h3
+                    className="text-base font-bold text-white"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {name}
+                  </h3>
+                  <span
+                    className="text-sm"
+                    style={{ color: "hsl(220,10%,58%)" }}
+                  >
+                    {subtitle}
+                  </span>
+                </div>
               </div>
 
-              {/* Topics */}
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
-                {subject.topics.map((topic, topicIndex) => (
-                  <motion.li
-                    key={topic}
-                    className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-[hsl(var(--color-foreground-muted))] group-hover:text-white/80 transition-colors"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 + topicIndex * 0.05 }}
-                    whileHover={{ x: 4 }}
-                  >
-                    <ChevronRight
-                      className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0"
-                      style={{ color: `hsl(${subject.color})` }}
-                    />
-                    {topic}
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          );
-        })}
+              <span
+                className="text-xs font-bold px-3 py-1.5 rounded-lg flex-shrink-0"
+                style={{
+                  background: `hsla(${hue}, 0.1)`,
+                  color: `hsl(${hue})`,
+                }}
+              >
+                {hours}
+              </span>
+            </div>
+
+            {/* Divider */}
+            <div
+              className="h-px mb-5"
+              style={{ background: "hsl(220,10%,16%)" }}
+            />
+
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {topics.map((topic) => (
+                <li
+                  key={topic}
+                  className="flex items-center gap-2 text-sm"
+                  style={{ color: "hsl(220,10%,58%)" }}
+                >
+                  <ChevronRight
+                    size={14}
+                    style={{ color: `hsl(${hue})`, flexShrink: 0 }}
+                  />
+                  {topic}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
       </motion.div>
 
-      {/* Extra Info */}
+      {/* Bonus banner */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="mt-5 sm:mt-6 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl text-center"
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="mt-5 px-6 py-5 rounded-xl"
         style={{
-          background:
-            "linear-gradient(135deg, hsla(var(--color-primary), 0.1) 0%, hsla(var(--color-primary-dark), 0.05) 100%)",
-          border: "1px solid hsla(var(--color-primary), 0.2)",
+          background: "hsla(36,100%,54%,0.06)",
+          border: "1px solid hsla(36,100%,54%,0.18)",
         }}
-        whileHover={{ scale: 1.01 }}
       >
-        <p className="text-xs sm:text-sm text-[hsl(var(--color-foreground-muted))]">
-          <strong className="text-[hsl(var(--color-primary))]">Bônus:</strong>{" "}
-          Material em PDF + Simulados semanais + Grupo exclusivo de estudos
+        <p
+          className="text-sm text-center"
+          style={{ color: "hsl(220,10%,78%)" }}
+        >
+          <strong style={{ color: "hsl(36,100%,54%)" }}>
+            Bônus Exclusivo:
+          </strong>{" "}
+          Análise Tática de Editais · Simulados Ranqueados · Resolução em Vídeo
         </p>
       </motion.div>
     </section>

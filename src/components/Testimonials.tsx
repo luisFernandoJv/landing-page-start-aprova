@@ -1,153 +1,133 @@
 import { motion } from "framer-motion";
-import { Star, Quote, MessageSquare } from "lucide-react";
+import { Star, MessageSquare } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Maria Silva",
-    role: "Aluna aprovada",
-    text: "O material é muito completo e os professores explicam de forma clara. Consegui minha aprovação!",
-    rating: 5,
+    name: "Carlos Eduardo",
+    role: "Aprovado — Tribunal de Justiça",
+    text: "O diferencial do Start Aprovação é a inteligência por trás do material. Eles mapeiam a banca de uma forma que você chega na prova sabendo o que vai encontrar.",
+    initial: "C",
   },
   {
-    name: "João Santos",
-    role: "Aluno da 1ª turma",
-    text: "Excelente metodologia de ensino. As aulas presenciais fazem toda a diferença na preparação.",
-    rating: 5,
+    name: "Fernanda Lima",
+    role: "Aprovada — Carreira Administrativa",
+    text: "A modalidade híbrida salvou minha rotina. O direcionamento dos professores cortou meu tempo de estudo pela metade com o dobro de eficiência.",
+    initial: "F",
   },
   {
-    name: "Ana Costa",
-    role: "Concurseira",
-    text: "Melhor investimento que fiz! O suporte é incrível e os simulados são muito parecidos com a prova.",
-    rating: 5,
+    name: "Rafael Souza",
+    role: "Classificado em 3º Lugar",
+    text: "Mudei de nível após entender a metodologia de revisões. O suporte é técnico, direto e focado no rendimento. Melhor investimento que já fiz.",
+    initial: "R",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -20, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
+const fade = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export function Testimonials() {
   return (
-    <section className="mb-6 lg:mb-0">
-      {/* Section Header */}
+    <section
+      id="depoimentos"
+      className="py-20 px-4 sm:px-6 max-w-6xl mx-auto scroll-mt-20"
+    >
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="text-center mb-4 sm:mb-5"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={fade}
+        className="mb-12"
       >
-        <motion.div
-          className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass mb-3"
-          whileHover={{ scale: 1.03 }}
-          transition={{ type: "spring", stiffness: 400 }}
+        <div className="tag mb-5">Resultados Comprovados</div>
+        <h2
+          className="text-3xl sm:text-4xl font-extrabold text-white"
+          style={{
+            fontFamily: "var(--font-display)",
+            letterSpacing: "-0.03em",
+          }}
         >
-          <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[hsl(var(--color-primary))]" />
-          <span className="text-[10px] sm:text-xs font-bold text-[hsl(var(--color-primary))] uppercase tracking-wider">
-            Depoimentos
-          </span>
-        </motion.div>
-        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black text-white text-balance">
-          O que nossos <span className="gradient-text">alunos dizem</span>
+          Quem tem método,{" "}
+          <span className="gradient-text">mostra o resultado</span>
         </h2>
       </motion.div>
 
-      {/* Testimonials */}
       <motion.div
-        variants={containerVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        className="space-y-2.5 sm:space-y-3"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: { transition: { staggerChildren: 0.1 } },
+        }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4"
       >
-        {testimonials.map((testimonial, index) => (
+        {testimonials.map(({ name, role, text, initial }) => (
           <motion.div
-            key={index}
-            variants={itemVariants}
-            className="glass-strong rounded-xl sm:rounded-2xl p-4 sm:p-5 lg:p-6 relative overflow-hidden group cursor-default"
-            whileHover={{
-              y: -4,
-              scale: 1.01,
-              transition: { type: "spring", stiffness: 400, damping: 17 },
-            }}
+            key={name}
+            variants={fade}
+            className="card p-6 flex flex-col"
           >
-            {/* Quote Icon */}
-            <motion.div
-              className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[hsla(var(--color-primary),0.1)] flex items-center justify-center"
-              whileHover={{ scale: 1.1, rotate: 10 }}
-              transition={{ type: "spring", stiffness: 400 }}
-            >
-              <Quote className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[hsl(var(--color-primary))] rotate-180" />
-            </motion.div>
-
-            {/* Rating */}
-            <div className="flex gap-0.5 mb-2.5 sm:mb-3">
-              {Array.from({ length: testimonial.rating }).map((_, i) => (
-                <motion.div
+            {/* Stars */}
+            <div className="flex gap-0.5 mb-5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
                   key={i}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: 0.3 + i * 0.1,
-                    type: "spring",
-                    stiffness: 500,
-                  }}
-                >
-                  <Star
-                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[hsl(var(--color-warning))]"
-                    fill="currentColor"
-                  />
-                </motion.div>
+                  size={14}
+                  style={{ color: "hsl(36,100%,54%)" }}
+                  fill="hsl(36,100%,54%)"
+                />
               ))}
             </div>
 
+            {/* Quote mark */}
+            <div
+              className="text-4xl font-black leading-none mb-3 select-none"
+              style={{
+                color: "hsla(36,100%,54%,0.2)",
+                fontFamily: "var(--font-display)",
+              }}
+            >
+              "
+            </div>
+
             {/* Text */}
-            <p className="text-xs sm:text-sm text-[hsl(var(--color-foreground-muted))] leading-relaxed mb-3 sm:mb-4 pr-8">
-              {`"${testimonial.text}"`}
+            <p
+              className="text-sm leading-relaxed flex-1 mb-6"
+              style={{ color: "hsl(220,10%,62%)" }}
+            >
+              {text}
             </p>
 
             {/* Author */}
-            <div className="flex items-center gap-2.5 sm:gap-3">
-              <motion.div
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[hsl(var(--color-primary))] to-[hsl(var(--color-primary-dark))] flex items-center justify-center text-white font-bold text-xs sm:text-sm"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400 }}
+            <div
+              className="flex items-center gap-3 pt-5"
+              style={{ borderTop: "1px solid hsl(220,10%,16%)" }}
+            >
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, hsl(36,100%,54%) 0%, hsl(28,100%,42%) 100%)",
+                  color: "#0a0a0a",
+                  fontFamily: "var(--font-display)",
+                }}
               >
-                {testimonial.name.charAt(0)}
-              </motion.div>
+                {initial}
+              </div>
               <div>
-                <span className="block text-xs sm:text-sm font-bold text-white">
-                  {testimonial.name}
+                <span
+                  className="block text-sm font-bold text-white"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {name}
                 </span>
-                <span className="text-[10px] sm:text-xs text-[hsl(var(--color-foreground-muted))]">
-                  {testimonial.role}
+                <span className="text-xs" style={{ color: "hsl(36,100%,54%)" }}>
+                  {role}
                 </span>
               </div>
             </div>
-
-            {/* Hover gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[hsla(var(--color-primary),0.03)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
           </motion.div>
         ))}
       </motion.div>

@@ -6,143 +6,109 @@ import {
   Users,
   Target,
   MessageSquare,
-  Zap,
 } from "lucide-react";
 
 const benefits = [
   {
     icon: BookOpen,
-    title: "Material Completo",
-    description: "Apostilas e material didático atualizado para o IGECAP",
+    title: "Material Cirúrgico",
+    desc: "Apostilas e PDFs focados na regra de Pareto 80/20. Estude apenas o que cai.",
   },
   {
     icon: ClipboardList,
-    title: "Simulados Exclusivos",
-    description: "Provas simuladas com o mesmo estilo da banca",
+    title: "Simulados Calibrados",
+    desc: "Treinamento com o nível de dificuldade exato e as pegadinhas das maiores bancas.",
   },
   {
     icon: Headphones,
-    title: "Suporte de Monitoria",
-    description: "Tire suas dúvidas com monitores especializados",
+    title: "Suporte Especializado",
+    desc: "Tire dúvidas técnicas e receba direcionamento estratégico da equipe.",
   },
   {
     icon: Users,
-    title: "Turmas Reduzidas",
-    description: "Acompanhamento mais próximo do professor",
+    title: "Turma de Elite",
+    desc: "Acompanhamento focado no seu rendimento. Sem turmas superlotadas.",
   },
   {
     icon: Target,
-    title: "Foco no Edital",
-    description: "Conteúdo 100% direcionado ao concurso IGECAP",
+    title: "Engenharia de Prova",
+    desc: "Método de resolução rápida para ganhar tempo e evitar brancos.",
   },
   {
     icon: MessageSquare,
-    title: "Grupo de Estudos",
-    description: "Comunidade ativa para troca de conhecimentos",
+    title: "Comunidade Blindada",
+    desc: "Networking com quem tem o mesmo nível de foco e disciplina que você.",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 25, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
-};
-
-const headerVariants = {
+const fade = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
 };
 
 export function Benefits() {
   return (
-    <section className="mb-6">
-      {/* Section Header */}
+    <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        variants={headerVariants}
-        className="text-center mb-5 lg:mb-6"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={fade}
+        className="mb-12"
       >
-        <motion.div
-          className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass mb-3"
-          whileHover={{ scale: 1.03 }}
-          transition={{ type: "spring", stiffness: 400 }}
+        <div className="tag mb-5">Vantagem Competitiva</div>
+        <h2
+          className="text-3xl sm:text-4xl font-extrabold text-white max-w-xl"
+          style={{
+            fontFamily: "var(--font-display)",
+            letterSpacing: "-0.03em",
+          }}
         >
-          <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[hsl(var(--color-primary))]" />
-          <span className="text-[10px] sm:text-xs font-bold text-[hsl(var(--color-primary))] uppercase tracking-wider">
-            Benefícios inclusos
-          </span>
-        </motion.div>
-        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black text-white text-balance">
-          Tudo que você precisa para{" "}
-          <span className="gradient-text">ser aprovado</span>
+          O arsenal completo para sua{" "}
+          <span className="gradient-text">aprovação</span>
         </h2>
       </motion.div>
 
-      {/* Benefits Grid */}
       <motion.div
-        variants={containerVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3 lg:gap-4"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: { transition: { staggerChildren: 0.08 } },
+        }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
       >
-        {benefits.map((benefit, index) => {
-          const IconComponent = benefit.icon;
-          return (
-            <motion.div
-              key={benefit.title}
-              variants={itemVariants}
-              className="glass-strong rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 group cursor-default"
-              whileHover={{
-                y: -6,
-                scale: 1.02,
-                transition: { type: "spring", stiffness: 400, damping: 17 },
+        {benefits.map(({ icon: Icon, title, desc }) => (
+          <motion.div
+            key={title}
+            variants={fade}
+            className="card p-6 group"
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+          >
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-colors"
+              style={{
+                background: "hsla(36,100%,54%,0.08)",
+                border: "1px solid hsla(36,100%,54%,0.15)",
               }}
-              custom={index}
             >
-              <motion.div
-                className="w-9 h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-[hsla(var(--color-primary),0.2)] to-[hsla(var(--color-primary),0.05)] border border-[hsla(var(--color-primary),0.2)] flex items-center justify-center mb-2.5 sm:mb-3"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[hsl(var(--color-primary))]" />
-              </motion.div>
-              <h3 className="text-xs sm:text-sm lg:text-base font-bold text-white mb-0.5 sm:mb-1">
-                {benefit.title}
-              </h3>
-              <p className="text-[10px] sm:text-xs lg:text-sm text-[hsl(var(--color-foreground-muted))] leading-relaxed">
-                {benefit.description}
-              </p>
-            </motion.div>
-          );
-        })}
+              <Icon size={18} style={{ color: "hsl(36,100%,54%)" }} />
+            </div>
+            <h3
+              className="text-sm font-bold text-white mb-2"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {title}
+            </h3>
+            <p
+              className="text-sm leading-relaxed"
+              style={{ color: "hsl(220,10%,58%)" }}
+            >
+              {desc}
+            </p>
+          </motion.div>
+        ))}
       </motion.div>
     </section>
   );
