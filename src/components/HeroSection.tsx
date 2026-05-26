@@ -81,7 +81,7 @@ export function HeroSection() {
             — seja presencial ou online.
           </p>
 
-          {/* CTAs (Botões Refatorados) */}
+          {}
           <div className="flex flex-col sm:flex-row gap-4 mb-10">
             {/* Botão Primário: Alta Conversão */}
             <motion.a
