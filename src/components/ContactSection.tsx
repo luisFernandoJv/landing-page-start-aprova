@@ -37,7 +37,7 @@ const channels = [
     value: "startaprova@gmail.com",
     href: "mailto:startaprova@gmail.com",
     colorClass: "text-blue-400",
-    bgClass: "bg-blue-400/10",
+    bgClass: "bg-blue-420/10",
     borderClass: "border-blue-400/20",
     hoverClass: "hover:border-blue-400/50 hover:bg-blue-400/20",
   },
