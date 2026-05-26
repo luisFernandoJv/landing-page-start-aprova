@@ -34,8 +34,8 @@ const channels = [
   {
     icon: Mail,
     label: "E-mail",
-    value: "contato@startaprovacao.com",
-    href: "mailto:contato@startaprovacao.com",
+    value: "startaprova@gmail.com",
+    href: "mailto:startaprova@gmail.com",
     colorClass: "text-blue-400",
     bgClass: "bg-blue-400/10",
     borderClass: "border-blue-400/20",
@@ -89,7 +89,7 @@ export function ContactSection() {
         <div className="space-y-4">
           {/* WhatsApp CTA Premium */}
           <motion.a
-            href="https://wa.me/5583996372727?text=Ola!%20Quero%20saber%20mais%20sobre%20o%20curso%20preparatorio%20Start%20Aprovacao!"
+            href="https://wa.me/558398388509?text=Ola!%20Quero%20saber%20mais%20sobre%20o%20curso%20preparatorio%20Start%20Aprovacao!"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() =>
@@ -115,7 +115,7 @@ export function ContactSection() {
                 Falar no WhatsApp
               </span>
               <span className="text-sm font-medium text-emerald-100/90">
-                (83) 99637-2727
+                (83) 9 9838-8509
               </span>
             </div>
             <ArrowRight

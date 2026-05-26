@@ -1,7 +1,3 @@
-// App.tsx — Start Aprovação
-// Arquitetura limpa: cada seção tem responsabilidade única,
-// layout max-w-6xl centrado, sem poluição visual
-
 import { Navigation } from "./components/Navigation";
 import { HeroSection } from "./components/HeroSection";
 import { Benefits } from "./components/Benefits";
@@ -78,19 +74,3 @@ export default function App() {
     </div>
   );
 }
-
-/*
-  ── ORDEM DE SEÇÕES (estratégia de conversão) ──────────────
-  Hero          → Captura atenção + CTA imediato
-  Benefits      → "O que eu ganho?" — valor percebido
-  About/Method  → "Por que vocês?" — credibilidade
-  Curriculum    → "O que vou aprender?" — detalhe
-  PriceCard     → Ancoragem de preço + CTA de conversão
-  Testimonials  → Prova social + quebra de objeção
-  WhatsApp      → Engajamento imediato na comunidade
-  CtaFinal      → Urgência + última chamada
-  Contact       → Dúvidas e localização física
-
-  Regra: o visitante decide comprar entre Benefits e PriceCard.
-  O restante elimina objeções residuais.
-*/

@@ -11,7 +11,7 @@ const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
 const groups = [
   {
     name: "Uiraúna — PB",
-    url: "https://chat.whatsapp.com/CgggrrGluFbACqlpYurrWh?mode=gi_t",
+    url: "https://chat.whatsapp.com/CgggrrGluFbACqlpYurrWh?s=cl&p=a&mlu=0",
     members: "45+ alunos ativos",
   },
 ];

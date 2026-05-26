@@ -111,7 +111,7 @@ export function HeroSection() {
 
             {/* Botão Secundário: Suporte / WhatsApp */}
             <motion.a
-              href="https://wa.me/5583996372727?text=Ola!%20Quero%20saber%20mais%20sobre%20o%20curso%20preparatorio%20Start%20Aprovacao!"
+              href="https://wa.me/558398388509?text=Ola!%20Quero%20saber%20mais%20sobre%20o%20curso%20preparatorio%20Start%20Aprovacao!"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() =>

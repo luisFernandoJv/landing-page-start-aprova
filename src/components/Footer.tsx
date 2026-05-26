@@ -121,7 +121,7 @@ export function Footer() {
                 className="flex items-start gap-3 text-sm text-zinc-400 transition-colors hover:text-white group focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-600 rounded-md"
               >
                 <Mail className="w-4 h-4 mt-0.5 text-zinc-500 group-hover:text-amber-500 transition-colors" />
-                <span>contato@startaprovacao.com.br</span>
+                <span>startaprovacao@gmail.com</span>
               </a>
               <div className="flex items-start gap-3 text-sm text-zinc-400">
                 <MapPin className="w-4 h-4 mt-0.5 text-zinc-500 flex-shrink-0" />
