@@ -1,12 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  BookOpen,
-  Calculator,
-  Globe,
-  FileText,
-  ChevronRight,
-  Clock,
-} from "lucide-react";
+import { Calculator, Globe, FileText, ChevronRight, Clock } from "lucide-react";
 
 const subjects = [
   {
