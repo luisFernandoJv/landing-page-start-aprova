@@ -116,18 +116,18 @@ export function InstagramHighlight() {
       {/* Grid estilo Leque Responsivo */}
       <div
         ref={embedRef}
-        // Altura do container AUMENTADA significativamente para abrigar a expansão dos iframes para cima
-        className="relative h-[450px] sm:h-[600px] lg:h-[650px] w-full max-w-4xl mx-auto flex justify-center mb-16"
+        // Ajuste: Removemos a altura fixa excessiva e usamos min-h + flex-wrap para garantir que nada sobreponha o topo
+        className="relative min-h-[350px] sm:h-[550px] lg:h-[600px] w-full max-w-4xl mx-auto flex items-end justify-center mb-16 mt-8 sm:mt-16"
       >
         {instagramPosts.map((post) => (
           <motion.div
             key={post.id}
-            initial={{ opacity: 0, y: 150, rotate: 0, scale: 0.8 }}
+            initial={{ opacity: 0, y: 50, rotate: 0, scale: 0.8 }}
             whileInView={{
               opacity: 1,
-              y: post.y,
-              x: post.x,
-              rotate: post.rotate,
+              y: isMobile ? 0 : post.y, // Ajuste: No mobile, reduzimos o offset vertical
+              x: isMobile ? post.x * 0.5 : post.x, // Ajuste: Reduzimos a abertura do leque no mobile
+              rotate: isMobile ? post.rotate * 0.5 : post.rotate,
               scale: 1,
               zIndex: post.zIndex,
             }}
@@ -136,18 +136,18 @@ export function InstagramHighlight() {
               duration: 0.8,
               delay: post.delay,
               type: "spring",
-              bounce: 0.4,
+              bounce: 0.3,
             }}
             whileHover={{
-              scale: isMobile ? 1.05 : 1.1,
+              scale: 1.05,
               rotate: 0,
-              y: -20,
+              y: -10,
               zIndex: 50,
-              transition: { duration: 0.3 },
+              transition: { duration: 0.2 },
             }}
             style={{ transformOrigin: "bottom center" }}
-            // Adicionado 'bottom-0' para ancorar a base do card no chão da div, assim ele cresce apenas para cima
-            className="absolute bottom-0 w-[200px] sm:w-[300px] rounded-2xl overflow-hidden bg-[#0a0a0a] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-zinc-800/80 cursor-pointer"
+            // Ajuste: cards ligeiramente menores no mobile para não estourar a largura
+            className="absolute bottom-0 w-[180px] sm:w-[260px] lg:w-[300px] rounded-2xl overflow-hidden bg-[#0a0a0a] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-zinc-800/80 cursor-pointer"
           >
             <blockquote
               className="instagram-media w-full m-0 p-0 border-0 bg-transparent"
@@ -155,16 +155,13 @@ export function InstagramHighlight() {
               data-instgrm-version="14"
               style={{ minWidth: "100%", maxWidth: "100%" }}
             >
-              <div className="flex items-center justify-center h-[350px] sm:h-[450px] bg-zinc-900">
-                <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br from-pink-500 via-rose-500 to-orange-400 flex items-center justify-center shadow-lg">
-                    <Play
-                      size={isMobile ? 16 : 20}
-                      className="text-white ml-1"
-                    />
+              <div className="flex items-center justify-center h-[250px] sm:h-[350px] lg:h-[400px] bg-zinc-900">
+                <div className="text-center p-4">
+                  <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                    <Play size={16} className="text-white ml-1" />
                   </div>
-                  <p className="text-[10px] sm:text-xs text-zinc-500 font-medium px-4">
-                    Carregando post...
+                  <p className="text-[10px] text-zinc-500 font-medium">
+                    Carregando...
                   </p>
                 </div>
               </div>
