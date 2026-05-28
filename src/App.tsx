@@ -14,30 +14,41 @@ import { Footer } from "./components/Footer";
 import { FloatingCta } from "./components/FloatingCta";
 import { BackgroundEffects } from "./components/BackgroundEffects";
 
-export function trackEvent(name: string, props?: Record<string, unknown>) {
-  // ... (mantenha seu código existente)
+// ── Analytics helper (Corrigido para evitar erro de TS6133) ────────────────
+export function trackEvent(_name: string, _props?: Record<string, unknown>) {
+  try {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", _name, _props);
+    }
+    if (import.meta.env.DEV) {
+      console.log(`[track] ${_name}`, _props);
+    }
+  } catch {
+    // silently fail
+  }
 }
 
+// ── App ───────────────────────────────────────────────────
 export default function App() {
   return (
-    // Adicionado overflow-hidden e flex col para estruturação base firme
-    <div
-      style={{ minHeight: "100vh", position: "relative" }}
-      className="overflow-x-hidden flex flex-col w-full"
-    >
+    // 'overflow-x-hidden' e 'w-full' resolvem o problema da linha fixa à esquerda
+    <div className="min-h-screen relative overflow-x-hidden w-full bg-zinc-950">
+      {/* Ambient background effects */}
       <BackgroundEffects />
+
+      {/* Sticky navigation */}
       <Navigation />
 
-      {/* Adicionado overflow-x-hidden e w-full para evitar a "linha fixa" invisível */}
-      <main
-        style={{ position: "relative", zIndex: 1 }}
-        className="flex-grow w-full overflow-x-hidden"
-      >
+      {/* ── Main content ── */}
+      <main className="relative z-10 w-full">
         <HeroSection />
         <Benefits />
         <AboutSection />
         <CurriculumSection />
+
+        {/* Radar de Editais */}
         <EditalRadar />
+
         <PriceCard />
         <Testimonials />
         <InstagramHighlight />
@@ -46,7 +57,10 @@ export default function App() {
         <ContactSection />
       </main>
 
+      {/* Footer */}
       <Footer />
+
+      {/* Floating CTA */}
       <FloatingCta />
     </div>
   );
