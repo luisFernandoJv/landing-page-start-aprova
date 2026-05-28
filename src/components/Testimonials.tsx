@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -31,25 +31,24 @@ export function Testimonials() {
   return (
     <section
       id="depoimentos"
-      className="py-20 px-4 sm:px-6 max-w-6xl mx-auto scroll-mt-20"
+      className="py-20 lg:py-28 px-4 sm:px-6 max-w-[1200px] mx-auto scroll-mt-20"
     >
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         variants={fade}
-        className="mb-12"
+        className="mb-14 lg:mb-20 text-center flex flex-col items-center"
       >
-        <div className="tag mb-5">Resultados Comprovados</div>
-        <h2
-          className="text-3xl sm:text-4xl font-extrabold text-white"
-          style={{
-            fontFamily: "var(--font-display)",
-            letterSpacing: "-0.03em",
-          }}
-        >
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-zinc-300 text-[11px] font-bold uppercase tracking-wider mb-4 backdrop-blur-sm shadow-sm">
+          <Star size={14} className="text-amber-500" />
+          Resultados Comprovados
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
           Quem tem método,{" "}
-          <span className="gradient-text">mostra o resultado</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+            mostra o resultado
+          </span>
         </h2>
       </motion.div>
 
@@ -61,69 +60,27 @@ export function Testimonials() {
           hidden: {},
           show: { transition: { staggerChildren: 0.1 } },
         }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
         {testimonials.map(({ name, role, text, initial }) => (
           <motion.div
             key={name}
             variants={fade}
-            className="card p-6 flex flex-col"
+            className="p-8 rounded-3xl bg-zinc-900/40 border border-zinc-800 backdrop-blur-sm transition-all hover:border-amber-500/30 hover:bg-zinc-900/60 flex flex-col group"
           >
-            {/* Stars */}
-            <div className="flex gap-0.5 mb-5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  size={14}
-                  style={{ color: "hsl(36,100%,54%)" }}
-                  fill="hsl(36,100%,54%)"
-                />
-              ))}
-            </div>
-
-            {/* Quote mark */}
-            <div
-              className="text-4xl font-black leading-none mb-3 select-none"
-              style={{
-                color: "hsla(36,100%,54%,0.2)",
-                fontFamily: "var(--font-display)",
-              }}
-            >
-              "
-            </div>
-
-            {/* Text */}
-            <p
-              className="text-sm leading-relaxed flex-1 mb-6"
-              style={{ color: "hsl(220,10%,62%)" }}
-            >
-              {text}
+            <Quote size={32} className="text-amber-500/20 mb-6" />
+            <p className="text-sm sm:text-base leading-relaxed text-zinc-300 flex-1 mb-8">
+              "{text}"
             </p>
-
-            {/* Author */}
-            <div
-              className="flex items-center gap-3 pt-5"
-              style={{ borderTop: "1px solid hsl(220,10%,16%)" }}
-            >
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(135deg, hsl(36,100%,54%) 0%, hsl(28,100%,42%) 100%)",
-                  color: "#0a0a0a",
-                  fontFamily: "var(--font-display)",
-                }}
-              >
+            <div className="flex items-center gap-4 pt-6 border-t border-zinc-800/80">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold bg-gradient-to-br from-amber-400 to-orange-600 text-zinc-950 font-display">
                 {initial}
               </div>
               <div>
-                <span
-                  className="block text-sm font-bold text-white"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
+                <span className="block text-sm font-bold text-white font-display">
                   {name}
                 </span>
-                <span className="text-xs" style={{ color: "hsl(36,100%,54%)" }}>
+                <span className="text-xs font-medium text-amber-500">
                   {role}
                 </span>
               </div>

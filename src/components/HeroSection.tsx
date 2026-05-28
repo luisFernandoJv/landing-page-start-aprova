@@ -10,13 +10,7 @@ import {
 import { ImageCarousel } from "./ImageCarousel";
 import { trackEvent } from "../App";
 
-const WhatsAppIcon = ({
-  size = 18,
-  className = "",
-}: {
-  size?: number;
-  className?: string;
-}) => (
+const WhatsAppIcon = ({ size = 18, className = "" }) => (
   <svg
     width={size}
     height={size}
@@ -37,42 +31,40 @@ const proofPoints = [
 
 export function HeroSection() {
   return (
-    <section id="inicio" className="pt-28 pb-16 px-4 sm:px-6 max-w-6xl mx-auto">
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section
+      id="inicio"
+      className="pt-28 lg:pt-32 pb-16 px-4 sm:px-6 max-w-[1200px] mx-auto overflow-hidden"
+    >
+      <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
         {/* Lado Esquerdo — Copy */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="lg:col-span-7 pr-0 lg:pr-6"
         >
-          {/* Tag de Destaque */}
-          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-zinc-300 text-xs font-medium mb-6 backdrop-blur-sm shadow-sm">
-            {/* Ponto pulsante de urgência (Substitui o emoji ruidoso) */}
+          {/* Badge Superior */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-zinc-900/80 border border-zinc-800 text-zinc-300 text-xs font-semibold mb-6 backdrop-blur-sm shadow-sm transition-colors hover:bg-zinc-800/80">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
             </span>
-
             <span className="tracking-wide">
-              Vagas Limitadas <span className="text-zinc-600 mx-1.5">•</span>{" "}
+              Vagas Limitadas <span className="text-zinc-600 mx-2">•</span>{" "}
               Turma 2026
             </span>
           </div>
 
-          {/* Headline */}
-          <h1
-            className="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-white mb-5 leading-[1.1] tracking-tight"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Pare de estudar no <br />
-            escuro.{" "}
+          {/* Margem inferior do H1 reduzida de mb-6 para mb-4 */}
+          <h1 className="text-4xl sm:text-5xl lg:text-[3.75rem] font-extrabold text-white mb-4 leading-[1.05] tracking-tight font-display">
+            Pare de estudar no escuro. <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
               Aprove com método.
             </span>
           </h1>
 
-          {/* Subtítulo */}
-          <p className="text-base sm:text-lg leading-relaxed text-zinc-400 mb-8 max-w-xl">
+          {/* Margem inferior do P reduzida de mb-10 para mb-8 */}
+          <p className="text-base sm:text-lg leading-relaxed text-zinc-400 mb-8 max-w-[90%] text-pretty">
             Aplicamos{" "}
             <strong className="text-zinc-200 font-semibold">
               engenharia reversa nas bancas examinadoras
@@ -81,9 +73,8 @@ export function HeroSection() {
             — seja presencial ou online.
           </p>
 
-          {}
-          <div className="flex flex-col sm:flex-row gap-4 mb-10">
-            {/* Botão Primário: Alta Conversão */}
+          {/* Área de Botões com espaçamento ajustado */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <motion.a
               href="https://forms.gle/e5GGQZqxGN2hMDnA6"
               target="_blank"
@@ -91,25 +82,20 @@ export function HeroSection() {
               onClick={() =>
                 trackEvent("cta_click", { location: "hero", type: "form" })
               }
-              className="group relative flex flex-1 sm:flex-none items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-b from-amber-400 to-amber-600 px-8 py-4 text-base font-bold text-zinc-950 shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-500/50 active:scale-[0.98]"
+              className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-b from-amber-400 to-amber-600 px-7 py-3.5 text-base font-bold text-zinc-950 shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] hover:-translate-y-0.5 active:scale-[0.98]"
             >
-              {/* Brilho interno para dar volume 3D */}
               <div className="absolute inset-0 rounded-xl border border-white/20 pointer-events-none" />
-
               <ClipboardList
                 size={20}
                 className="transition-transform duration-300 group-hover:-translate-y-0.5"
               />
-              <span style={{ fontFamily: "var(--font-display)" }}>
-                Garantir Minha Vaga
-              </span>
+              <span className="font-display">Garantir Minha Vaga</span>
               <ArrowRight
                 size={18}
                 className="transition-transform duration-300 group-hover:translate-x-1.5"
               />
             </motion.a>
 
-            {/* Botão Secundário: Suporte / WhatsApp */}
             <motion.a
               href="https://wa.me/558398388509?text=Ola!%20Quero%20saber%20mais%20sobre%20o%20curso%20preparatorio%20Start%20Aprovacao!"
               target="_blank"
@@ -117,33 +103,30 @@ export function HeroSection() {
               onClick={() =>
                 trackEvent("cta_click", { location: "hero", type: "whatsapp" })
               }
-              className="group flex flex-1 sm:flex-none items-center justify-center gap-3 rounded-xl bg-zinc-900 border border-zinc-700 px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:bg-zinc-800 hover:border-zinc-600 focus:outline-none focus-visible:ring-4 focus-visible:ring-zinc-700 active:scale-[0.98]"
+              className="group flex items-center justify-center gap-3 rounded-xl bg-zinc-900 border border-zinc-700 px-7 py-3.5 text-base font-bold text-white transition-all duration-300 hover:bg-zinc-800 hover:border-zinc-500 hover:-translate-y-0.5 active:scale-[0.98]"
             >
               <WhatsAppIcon
                 size={20}
                 className="text-emerald-500 transition-transform duration-300 group-hover:scale-110"
               />
-              <span style={{ fontFamily: "var(--font-display)" }}>
-                Falar no WhatsApp
-              </span>
+              <span className="font-display">Falar no WhatsApp</span>
             </motion.a>
           </div>
 
-          {/* Proof Points */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="flex flex-wrap gap-3 max-w-2xl">
             {proofPoints.map(({ icon: Icon, label }) => (
               <div
                 key={label}
-                className="flex items-center gap-2.5 text-sm text-zinc-400 font-medium"
+                className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-900/50 border border-zinc-800 text-sm text-zinc-400 font-medium"
               >
-                <Icon size={16} className="text-amber-500 flex-shrink-0" />
+                <Icon size={16} className="text-amber-500/80 flex-shrink-0" />
                 <span>{label}</span>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* Lado Direito — Carousel */}
+        {/* Lado Direito — Showcase Unificado */}
         <motion.div
           initial={{ opacity: 0, x: 32 }}
           animate={{ opacity: 1, x: 0 }}
@@ -152,30 +135,41 @@ export function HeroSection() {
             delay: 0.15,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
-          className="relative"
+          className="lg:col-span-5 relative"
         >
-          {/* Tag de Preço Flutuante Premium */}
-          <div className="flex items-center justify-between mb-6 p-5 rounded-2xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800 shadow-2xl">
-            <div>
-              <p className="text-xs font-medium text-zinc-400 mb-1 uppercase tracking-wider">
-                Investimento mensal
-              </p>
-              <p
-                className="text-3xl font-extrabold text-white"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                R$ 130
-                <span className="text-sm font-medium text-zinc-500 ml-1">
-                  /mês
-                </span>
-              </p>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-amber-500/10 blur-[100px] rounded-full pointer-events-none -z-10" />
+
+          <div className="relative w-full rounded-[2rem] bg-zinc-900/60 border border-zinc-800 backdrop-blur-md shadow-2xl p-2 sm:p-3 transition-colors hover:bg-zinc-900/80">
+            <div className="flex items-center justify-between px-5 py-4 bg-zinc-950/90 rounded-[1.25rem] border border-white/5 mb-3 shadow-inner">
+              <div>
+                <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">
+                  Investimento
+                </p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-bold text-zinc-500">R$</span>
+                  <span className="text-3xl font-black text-white tracking-tight font-display leading-none">
+                    300
+                  </span>
+                  <span className="text-xs font-medium text-zinc-500 ml-1">
+                    à vista
+                  </span>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <p className="text-[9px] font-bold text-amber-500/80 mb-1.5 uppercase tracking-widest">
+                  Ou parcelado em
+                </p>
+                <p className="text-xs sm:text-sm font-bold text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/20 shadow-inner">
+                  3x de R$ 110,00
+                </p>
+              </div>
             </div>
-            <div className="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold shadow-[0_0_15px_rgba(245,158,11,0.1)]">
-              &lt; R$ 4,50/dia
+
+            <div className="rounded-[1.25rem] overflow-hidden border border-zinc-800/80 bg-zinc-950 shadow-inner">
+              <ImageCarousel />
             </div>
           </div>
-
-          <ImageCarousel />
         </motion.div>
       </div>
     </section>

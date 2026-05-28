@@ -6,6 +6,7 @@ import {
   Users,
   Target,
   MessageSquare,
+  Award,
 } from "lucide-react";
 
 const benefits = [
@@ -43,29 +44,28 @@ const benefits = [
 
 const fade = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export function Benefits() {
   return (
-    <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <section className="py-20 lg:py-28 px-4 sm:px-6 max-w-[1200px] mx-auto">
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
         variants={fade}
-        className="mb-12"
+        className="mb-14 lg:mb-20 text-center flex flex-col items-center"
       >
-        <div className="tag mb-5">Vantagem Competitiva</div>
-        <h2
-          className="text-3xl sm:text-4xl font-extrabold text-white max-w-xl"
-          style={{
-            fontFamily: "var(--font-display)",
-            letterSpacing: "-0.03em",
-          }}
-        >
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-zinc-300 text-[11px] font-bold uppercase tracking-wider mb-4 backdrop-blur-sm shadow-sm">
+          <Award size={14} className="text-amber-500" />
+          Vantagem Competitiva
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
           O arsenal completo para sua{" "}
-          <span className="gradient-text">aprovação</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+            aprovação
+          </span>
         </h2>
       </motion.div>
 
@@ -77,36 +77,22 @@ export function Benefits() {
           hidden: {},
           show: { transition: { staggerChildren: 0.08 } },
         }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
       >
         {benefits.map(({ icon: Icon, title, desc }) => (
           <motion.div
             key={title}
             variants={fade}
-            className="card p-6 group"
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            whileHover={{ y: -5 }}
+            className="p-8 rounded-3xl bg-zinc-900/40 border border-zinc-800 backdrop-blur-sm transition-all hover:border-amber-500/30 hover:bg-zinc-900/60 flex flex-col group"
           >
-            <div
-              className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-colors"
-              style={{
-                background: "hsla(36,100%,54%,0.08)",
-                border: "1px solid hsla(36,100%,54%,0.15)",
-              }}
-            >
-              <Icon size={18} style={{ color: "hsl(36,100%,54%)" }} />
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-amber-500/10 border border-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+              <Icon size={24} className="text-amber-500" />
             </div>
-            <h3
-              className="text-sm font-bold text-white mb-2"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <h3 className="text-xl font-bold text-white mb-3 font-display">
               {title}
             </h3>
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: "hsl(220,10%,58%)" }}
-            >
-              {desc}
-            </p>
+            <p className="text-sm leading-relaxed text-zinc-400">{desc}</p>
           </motion.div>
         ))}
       </motion.div>

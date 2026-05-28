@@ -1,14 +1,15 @@
 import { motion } from "framer-motion";
-import { Mail, MapPin, Clock, ArrowRight, Instagram } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Clock,
+  ArrowRight,
+  Instagram,
+  MessageCircle,
+} from "lucide-react";
 import { trackEvent } from "../App";
 
-const WhatsAppIcon = ({
-  size = 20,
-  className = "",
-}: {
-  size?: number;
-  className?: string;
-}) => (
+const WhatsAppIcon = ({ size = 20, className = "" }) => (
   <svg
     width={size}
     height={size}
@@ -37,7 +38,7 @@ const channels = [
     value: "startaprova@gmail.com",
     href: "mailto:startaprova@gmail.com",
     colorClass: "text-blue-400",
-    bgClass: "bg-blue-420/10",
+    bgClass: "bg-blue-400/10",
     borderClass: "border-blue-400/20",
     hoverClass: "hover:border-blue-400/50 hover:bg-blue-400/20",
   },
@@ -52,7 +53,7 @@ const locations = [
   {
     city: "Formato Online",
     address: "Acesso de qualquer lugar do Brasil",
-    schedule: "Aulas e materiais digitais disponíveis",
+    schedule: "Aulas e materiais disponíveis",
   },
 ];
 
@@ -60,36 +61,35 @@ export function ContactSection() {
   return (
     <section
       id="contato"
-      className="py-20 px-4 sm:px-6 max-w-6xl mx-auto scroll-mt-20"
+      className="py-20 lg:py-28 px-4 sm:px-6 max-w-[1200px] mx-auto scroll-mt-20 overflow-hidden"
     >
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mb-12"
+        className="mb-14 lg:mb-20"
       >
-        <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-zinc-300 text-xs font-medium uppercase tracking-wider mb-5 backdrop-blur-sm shadow-sm">
-          Contato
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-zinc-300 text-[11px] font-bold uppercase tracking-wider mb-5 backdrop-blur-sm shadow-sm">
+          <MessageCircle size={14} className="text-amber-500" /> Contato
         </div>
-        <h2
-          className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display mb-4">
           Fale{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
             conosco
           </span>
         </h2>
+        <p className="text-zinc-400 max-w-xl text-sm sm:text-base leading-relaxed">
+          Nossa equipe está pronta para tirar todas as suas dúvidas. Escolha o
+          canal abaixo:
+        </p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Coluna Esquerda */}
-        <div className="space-y-4">
-          {/* WhatsApp CTA Premium */}
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        {/* Esquerda: WhatsApp e Canais */}
+        <div className="space-y-6">
           <motion.a
-            href="https://wa.me/558398388509?text=Ola!%20Quero%20saber%20mais%20sobre%20o%20curso%20preparatorio%20Start%20Aprovacao!"
+            href="https://wa.me/558398388509"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() =>
@@ -97,34 +97,25 @@ export function ContactSection() {
             }
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="group relative flex items-center gap-4 p-5 rounded-2xl w-full bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-lg transition-all duration-300 hover:shadow-[0_0_25px_rgba(16,185,129,0.3)] active:scale-[0.98] focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-500/50"
+            className="group relative flex items-center gap-5 p-6 rounded-3xl w-full bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:-translate-y-1 active:scale-[0.98]"
           >
-            {/* Brilho interno para volume */}
-            <div className="absolute inset-0 rounded-2xl border border-white/20 pointer-events-none" />
-
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-white/20 backdrop-blur-sm shadow-inner transition-transform duration-300 group-hover:scale-110">
-              <WhatsAppIcon size={24} />
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 bg-white/20 backdrop-blur-md shadow-inner">
+              <WhatsAppIcon size={28} />
             </div>
             <div className="flex-1">
-              <span
-                className="block text-lg font-bold"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
+              <span className="block text-xl font-bold font-display">
                 Falar no WhatsApp
               </span>
-              <span className="text-sm font-medium text-emerald-100/90">
+              <span className="text-sm font-medium text-emerald-100">
                 (83) 9 9838-8509
               </span>
             </div>
             <ArrowRight
-              size={20}
-              className="text-white/80 transition-transform duration-300 group-hover:translate-x-1"
+              size={24}
+              className="text-white/80 group-hover:translate-x-1 transition-transform"
             />
           </motion.a>
 
-          {/* Outros Canais */}
           <div className="grid grid-cols-2 gap-4">
             {channels.map(
               ({
@@ -140,29 +131,14 @@ export function ContactSection() {
                 <motion.a
                   key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    trackEvent("contact_click", { method: label.toLowerCase() })
-                  }
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45 }}
-                  className={`group p-5 rounded-2xl bg-zinc-900/50 border border-zinc-800 text-center transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-600 ${hoverClass}`}
+                  className={`group p-6 rounded-3xl bg-zinc-900/40 border border-zinc-800 text-center transition-all hover:-translate-y-1 ${hoverClass}`}
                 >
                   <div
-                    className={`w-10 h-10 mx-auto mb-3 rounded-xl flex items-center justify-center transition-colors duration-300 ${bgClass} ${borderClass}`}
+                    className={`w-12 h-12 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 ${bgClass} ${borderClass}`}
                   >
-                    <Icon
-                      size={20}
-                      className={`${colorClass} transition-transform duration-300 group-hover:scale-110`}
-                    />
+                    <Icon size={24} className={colorClass} />
                   </div>
-                  <span
-                    className="block text-sm font-bold text-white mb-0.5"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
+                  <span className="block text-base font-bold text-white mb-1 font-display">
                     {label}
                   </span>
                   <span className="text-xs text-zinc-400 truncate block">
@@ -174,26 +150,23 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Coluna Direita — Locais */}
+        {/* Direita: Locais */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="p-7 rounded-2xl bg-zinc-900/50 border border-zinc-800"
+          className="p-8 sm:p-10 rounded-3xl bg-zinc-900/40 border border-zinc-800 backdrop-blur-sm"
         >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/20">
-              <MapPin size={22} className="text-blue-400" />
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-blue-500/10 border border-blue-500/20">
+              <MapPin size={24} className="text-blue-400" />
             </div>
             <div>
-              <h3
-                className="text-lg font-bold text-white"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
+              <h3 className="text-2xl font-bold text-white font-display mb-1">
                 Locais de Aula
               </h3>
-              <p className="text-sm text-zinc-400">Presencial & Online</p>
+              <p className="text-sm font-medium text-zinc-400">
+                Presencial & Online
+              </p>
             </div>
           </div>
 
@@ -201,20 +174,16 @@ export function ContactSection() {
             {locations.map((loc) => (
               <div
                 key={loc.city}
-                className="p-5 rounded-xl bg-zinc-950/50 border border-zinc-800/80 transition-colors hover:border-zinc-700"
+                className="p-6 rounded-2xl bg-zinc-950/50 border border-zinc-800/80 hover:border-zinc-700 transition-colors"
               >
-                <span
-                  className="block text-sm font-bold text-amber-500 mb-1"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
+                <span className="block text-base font-bold text-amber-500 mb-1.5 font-display">
                   {loc.city}
                 </span>
-                <span className="block text-sm text-zinc-300 mb-3">
+                <span className="block text-sm text-zinc-300 mb-4">
                   {loc.address}
                 </span>
-                <div className="flex items-center gap-2 text-xs font-medium text-zinc-500">
-                  <Clock size={14} />
-                  {loc.schedule}
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  <Clock size={14} /> {loc.schedule}
                 </div>
               </div>
             ))}

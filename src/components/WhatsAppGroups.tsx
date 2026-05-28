@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Users } from "lucide-react";
+import { ArrowRight, Users, MessageSquare } from "lucide-react";
 import { trackEvent } from "../App";
 
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
@@ -18,76 +18,70 @@ const groups = [
 
 export function WhatsAppGroups() {
   return (
-    <section className="px-4 sm:px-6 max-w-6xl mx-auto mb-4">
-      {/* Section label */}
-      <div className="flex items-center gap-4 mb-5">
-        <div
-          className="h-px flex-1"
-          style={{ background: "hsl(220,10%,16%)" }}
-        />
-        <span
-          className="text-xs font-medium flex-shrink-0"
-          style={{ color: "hsl(220,10%,48%)" }}
-        >
-          Comunidade no WhatsApp
-        </span>
-        <div
-          className="h-px flex-1"
-          style={{ background: "hsl(220,10%,16%)" }}
-        />
-      </div>
+    <section className="py-12 lg:py-20 px-4 sm:px-6 max-w-[1200px] mx-auto overflow-hidden">
+      {/* Header Padronizado */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="mb-12 text-center flex flex-col items-center"
+      >
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-zinc-300 text-[11px] font-bold uppercase tracking-wider mb-4 backdrop-blur-sm shadow-sm">
+          <MessageSquare size={14} className="text-emerald-500" />
+          Nossa Comunidade
+        </div>
 
-      {groups.map((group) => (
-        <motion.a
-          key={group.name}
-          href={group.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() =>
-            trackEvent("whatsapp_group_click", { group: group.name })
-          }
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-          className="flex items-center gap-4 p-5 rounded-xl w-full"
-          style={{
-            background:
-              "linear-gradient(135deg, hsl(142,70%,45%) 0%, hsl(145,70%,35%) 100%)",
-            color: "#fff",
-          }}
-          whileHover={{ scale: 1.01, y: -2 }}
-          whileTap={{ scale: 0.99 }}
-        >
-          <div
-            className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "rgba(255,255,255,0.15)" }}
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display mb-3">
+          Estude com quem está na{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">
+            mesma jornada
+          </span>
+        </h2>
+        <p className="text-zinc-400 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+          Participe do nosso grupo oficial para receber avisos, materiais
+          gratuitos e suporte da equipe.
+        </p>
+      </motion.div>
+
+      <div className="flex justify-center">
+        {groups.map((group) => (
+          <motion.a
+            key={group.name}
+            href={group.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              trackEvent("whatsapp_group_click", { group: group.name })
+            }
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="group flex items-center gap-5 p-5 sm:p-6 rounded-3xl w-full max-w-xl bg-zinc-900/40 border border-emerald-500/20 hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all duration-300 shadow-xl backdrop-blur-sm"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <WhatsAppIcon size={22} />
-          </div>
-
-          <div className="flex-1 min-w-0">
-            <span
-              className="block text-base font-bold"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Grupo de WhatsApp
-            </span>
-            <div
-              className="flex items-center gap-1.5 text-sm"
-              style={{ color: "rgba(255,255,255,0.75)" }}
-            >
-              <Users size={12} />
-              {group.name} · {group.members}
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-lg group-hover:shadow-emerald-500/50 transition-shadow">
+              <WhatsAppIcon size={28} className="text-white" />
             </div>
-          </div>
 
-          <ArrowRight
-            size={18}
-            style={{ color: "rgba(255,255,255,0.7)", flexShrink: 0 }}
-          />
-        </motion.a>
-      ))}
+            <div className="flex-1 min-w-0">
+              <span className="block text-xl font-extrabold text-white font-display tracking-tight mb-1">
+                Entrar no Grupo VIP
+              </span>
+              <div className="flex items-center gap-2 text-sm font-medium text-zinc-400">
+                <Users size={14} className="text-emerald-500" />
+                {group.name} <span className="mx-0.5">•</span> {group.members}
+              </div>
+            </div>
+
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-zinc-800/80 text-zinc-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors flex-shrink-0">
+              <ArrowRight size={18} />
+            </div>
+          </motion.a>
+        ))}
+      </div>
     </section>
   );
 }
