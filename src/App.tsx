@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useMemo, useState } from "react";
 import { ArrowRight, BookOpen, Check, ChevronDown, FileText, Menu, Search, ShieldCheck, Sparkles, Target, Users, X } from "lucide-react";
 export function trackEvent(name: string, props?: Record<string, unknown>) {
   if (typeof window !== "undefined" && (window as Window & { gtag?: (...args: unknown[]) => void }).gtag) {
@@ -16,40 +15,8 @@ function CTA({ children = "QUERO COMEÇAR AGORA", href = whatsapp }: { children?
 
 function Navigation() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("#inicio");
-  const [scrolled, setScrolled] = useState(false);
   const links = [["Início", "#inicio"], ["Método", "#metodo"], ["Professores", "#professores"], ["Resultados", "#resultados"], ["Materiais", "/materiais"]];
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 24);
-      const sections = links.filter(([, href]) => href.startsWith("#")).map(([, href]) => document.querySelector(href)).filter(Boolean) as Element[];
-      const current = sections.reverse().find((section) => section.getBoundingClientRect().top <= 140);
-      if (current?.id) setActive(`#${current.id}`);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return <motion.header animate={{ y: 0 }} className={`nav ${scrolled ? "nav-scrolled" : ""}`}>
-    <a href="#inicio" className="brand"><img src="/image/logo.png" alt="Start Aprovação" /></a>
-    <AnimatePresence>
-      {open && <motion.button className="nav-overlay" aria-label="Fechar menu" onClick={() => setOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />}
-    </AnimatePresence>
-    <motion.nav className={open ? "nav-links open" : "nav-links"} initial={false} animate={open ? { x: 0 } : {}}>
-      {links.map(([label, href], index) => <motion.a key={href} href={href} onClick={() => setOpen(false)} className={active === href ? "active" : ""} initial={false} animate={open ? { opacity: 1, x: 0 } : {}} transition={{ delay: open ? index * 0.055 : 0 }}><span>{label}</span>{active === href && href.startsWith("#") && <motion.i layoutId="active-nav-pill" />}</motion.a>)}
-      <CTA />
-    </motion.nav>
-    <button className="menu-button" aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
-  </motion.header>;
-}
-
-function ScrollSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [18, 0, -12]);
-  return <motion.section ref={ref} style={{ y }} className={`scroll-section ${className}`}>{children}</motion.section>;
+  return <header className="nav"><a href="#inicio" className="brand"><img src="/image/logo.png" alt="Start Aprovação" /></a><nav className={open ? "nav-links open" : "nav-links"}>{links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}<CTA /></nav><button className="menu-button" aria-label={open ? "Fechar menu" : "Abrir menu"} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></header>;
 }
 
 function Hero() { return <section id="inicio" className="hero section-wrap"><div className="hero-copy"><p className="eyebrow">PREPARAÇÃO PARA CONCURSOS</p><h1>Preparação que transforma estudo em <em>aprovação.</em></h1><p className="lead">Estude com professores especialistas, materiais direcionados e uma metodologia pensada para você chegar mais preparado à prova.</p><div className="hero-actions"><CTA /><a className="text-link" href="#metodo">Conhecer a metodologia <ArrowRight aria-hidden="true" /></a></div><div className="proof-row"><span><Check /> Professores especialistas</span><span><Check /> Material direcionado</span><span><Check /> Foco em resultado</span></div></div><div className="faculty-board"><div className="board-label">COMUNIDADE START <span>● AO VIVO</span></div><div className="photo-grid"><img className="photo-main" src={photos[0]} alt="Turma Start Aprovação em aula" /><img src={photos[1]} alt="Alunos da Start Aprovação" /><img src={photos[2]} alt="Momento de estudo da turma" /></div><div className="board-note"><Sparkles /><div><strong>Estude com direção.</strong><small>Seu objetivo merece um plano.</small></div></div></div></section> }
@@ -77,4 +44,4 @@ function Footer() { return <footer><div className="section-wrap footer-grid"><di
 
 function Materials() { const [query, setQuery] = useState(""); const [filter, setFilter] = useState("Todos"); const categories = ["Todos", "Português", "Matemática", "Direito", "Informática", "Legislação", "Conhecimentos específicos"]; const empty = useMemo(() => !query && filter === "Todos", [query, filter]); return <div className="materials-page"><Navigation /><main className="section-wrap materials"><p className="eyebrow">BIBLIOTECA DIGITAL</p><h1>Seu material de estudo,<br /><em>organizado em um só lugar.</em></h1><p className="lead">Encontre apostilas, PDFs, mapas mentais e materiais complementares para continuar sua preparação.</p><div className="search-box"><Search /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Buscar material..." aria-label="Buscar material" /></div><div className="filter-row">{categories.map(c => <button className={filter === c ? "active" : ""} onClick={() => setFilter(c)} key={c}>{c}</button>)}</div><div className="materials-empty"><FileText /><h2>{empty ? "Sua biblioteca está sendo preparada" : "Nenhum material encontrado"}</h2><p>{empty ? "Em breve, você terá acesso a materiais organizados para cada etapa da sua preparação." : "Tente buscar outro termo ou selecionar uma categoria diferente."}</p></div></main><Footer /></div> }
 
-export default function App() { return window.location.pathname === "/materiais" ? <Materials /> : <div><Navigation /><main><Hero /><ScrollSection><Authority /></ScrollSection><ScrollSection><Method /></ScrollSection><ScrollSection><Benefits /></ScrollSection><ScrollSection><Professors /></ScrollSection><ScrollSection><Gallery /></ScrollSection><ScrollSection><Testimonials /></ScrollSection><ScrollSection><Offer /></ScrollSection><ScrollSection><FAQ /></ScrollSection></main><Footer /></div> }
+export default function App() { return window.location.pathname === "/materiais" ? <Materials /> : <div><Navigation /><main><Hero /><Authority /><Method /><Benefits /><Professors /><Gallery /><Testimonials /><Offer /><FAQ /></main><Footer /></div> }
