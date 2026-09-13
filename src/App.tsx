@@ -12,7 +12,6 @@ import {
   RefreshCw,
   ShieldCheck,
   Target,
-  Trophy,
   Users,
   X,
 } from "lucide-react";
