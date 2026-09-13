@@ -1,0 +1,1073 @@
+/* ==========================================================================
+   ÁREA DO ALUNO — tokens de tema + layout
+   Escopo: tudo vive dentro de ".student-area", então o site institucional
+   (index.css) não é afetado. As cores partem da paleta já usada no site
+   (creme #f5f1e8, azul #1a3fa0, amarelo #ffbe0b) — o tema escuro reaproveita
+   o mesmo azul-marinho já usado no painel de login/seções escuras.
+   ========================================================================== */
+
+.student-area {
+  /* ---- Tema claro (default) — espelha o site institucional ---- */
+  --sa-bg: #f5f1e8;
+  --sa-bg-elevated: #ffffff;
+  --sa-bg-subtle: #eee7d7;
+  --sa-fg: #2a2312;
+  --sa-fg-muted: #6b6355;
+  --sa-border: rgba(42, 35, 18, 0.1);
+  --sa-border-strong: rgba(42, 35, 18, 0.16);
+  --sa-primary: #1a3fa0;
+  --sa-primary-hover: #163889;
+  --sa-primary-fg: #ffffff;
+  --sa-primary-tint: rgba(26, 63, 160, 0.08);
+  --sa-accent: #ffbe0b;
+  --sa-accent-fg: #2a2312;
+  --sa-danger: #e5484d;
+  --sa-shadow: rgba(42, 35, 18, 0.12);
+  --sa-focus-ring: rgba(26, 63, 160, 0.35);
+
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--sa-bg);
+  color: var(--sa-fg);
+  font-family: "DM Sans", sans-serif;
+}
+
+.student-area[data-theme="dark"] {
+  --sa-bg: #0a1730;
+  --sa-bg-elevated: #12234a;
+  --sa-bg-subtle: #172c56;
+  --sa-fg: #f2ecdd;
+  --sa-fg-muted: #a7b0d6;
+  --sa-border: rgba(245, 241, 232, 0.1);
+  --sa-border-strong: rgba(245, 241, 232, 0.18);
+  --sa-primary: #6d97ef;
+  --sa-primary-hover: #89aaf4;
+  --sa-primary-fg: #0a1730;
+  --sa-primary-tint: rgba(109, 151, 239, 0.14);
+  --sa-accent: #ffc933;
+  --sa-accent-fg: #241a00;
+  --sa-danger: #ff6b70;
+  --sa-shadow: rgba(0, 0, 0, 0.45);
+  --sa-focus-ring: rgba(109, 151, 239, 0.45);
+}
+
+.student-area * {
+  box-sizing: border-box;
+}
+
+.student-area button {
+  font: inherit;
+  color: inherit;
+}
+
+.student-area :focus-visible {
+  outline: 2px solid var(--sa-primary);
+  outline-offset: 2px;
+}
+
+.student-area h1,
+.student-area h2 {
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+}
+
+/* ---------------------------- Sidebar ---------------------------- */
+
+.sa-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 28px 20px;
+  background: var(--sa-bg-elevated);
+  border-right: 1px solid var(--sa-border);
+}
+
+.sa-sidebar-desktop {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sa-brand {
+  display: inline-flex;
+  align-self: flex-start;
+}
+
+.sa-brand img {
+  width: 128px;
+  display: block;
+}
+
+.sa-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  flex: 1;
+}
+
+.sa-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sa-nav-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sa-fg-muted);
+  margin: 0 12px 8px;
+}
+
+.sa-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  text-align: left;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--sa-fg-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sa-nav-item svg {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+}
+
+.sa-nav-item:hover {
+  background: var(--sa-bg-subtle);
+  color: var(--sa-fg);
+}
+
+.sa-nav-item.active {
+  background: var(--sa-primary-tint);
+  color: var(--sa-primary);
+}
+
+.sa-nav-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sa-border);
+}
+
+.sa-nav-item-exit {
+  text-decoration: none;
+}
+
+.sa-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(10, 10, 10, 0.45);
+  display: none;
+}
+
+.sa-sidebar-close {
+  display: none;
+}
+
+/* ---------------------------- Header ---------------------------- */
+
+.sa-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sa-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--sa-border);
+  background: var(--sa-bg-elevated);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.sa-menu-btn {
+  display: none;
+  border: 0;
+  background: none;
+  padding: 6px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sa-menu-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sa-search {
+  flex: 1;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--sa-bg-subtle);
+  border: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.sa-search:focus-within {
+  border-color: var(--sa-primary);
+}
+
+.sa-search svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sa-fg-muted);
+  flex-shrink: 0;
+}
+
+.sa-search input {
+  border: 0;
+  background: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: var(--sa-fg);
+}
+
+.sa-search input::placeholder {
+  color: var(--sa-fg-muted);
+}
+
+.sa-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.sa-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 0;
+  background: none;
+  color: var(--sa-fg-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sa-icon-btn:hover {
+  background: var(--sa-bg-subtle);
+  color: var(--sa-fg);
+}
+
+.sa-icon-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.sa-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  background: none;
+  padding: 4px 8px 4px 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sa-profile-btn:hover {
+  background: var(--sa-bg-subtle);
+}
+
+.sa-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sa-primary-tint);
+  color: var(--sa-primary);
+}
+
+.sa-avatar svg {
+  width: 17px;
+  height: 17px;
+}
+
+.sa-profile-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ---------------------------- Theme toggle ---------------------------- */
+
+.sa-theme-toggle {
+  border: 0;
+  background: none;
+  padding: 2px;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.sa-theme-toggle-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--sa-bg-subtle);
+  border: 1px solid var(--sa-border-strong);
+  padding: 0 6px;
+  justify-content: space-between;
+}
+
+.sa-theme-icon {
+  width: 15px;
+  height: 15px;
+  color: var(--sa-fg-muted);
+  position: relative;
+  z-index: 1;
+}
+
+.sa-theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--sa-primary);
+  box-shadow: 0 2px 6px var(--sa-shadow);
+  transition: transform 0.2s ease;
+}
+
+.student-area[data-theme="dark"] .sa-theme-toggle-thumb {
+  transform: translateX(22px);
+}
+
+/* ---------------------------- Content ---------------------------- */
+
+.sa-content {
+  flex: 1;
+  padding: 32px;
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sa-view {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.sa-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  color: var(--sa-primary);
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.sa-page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sa-page-heading h1 {
+  font-size: clamp(24px, 3vw, 30px);
+  letter-spacing: -0.02em;
+}
+
+.sa-subtitle {
+  margin: 6px 0 0;
+  color: var(--sa-fg-muted);
+  font-size: 15px;
+}
+
+.sa-hero-card h1 {
+  font-size: clamp(26px, 3.4vw, 34px);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.sa-hero-card p {
+  margin: 0;
+  color: var(--sa-fg-muted);
+  font-size: 15px;
+}
+
+.sa-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sa-section-title {
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+
+.sa-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sa-fg-muted);
+  cursor: pointer;
+}
+
+.sa-back-link:hover {
+  color: var(--sa-primary);
+}
+
+.sa-back-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------------------------- Continue estudando ---------------------------- */
+
+.sa-continue-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 22px 26px;
+  border-radius: 20px;
+  background: var(--sa-bg-elevated);
+  border: 1px solid var(--sa-border);
+  box-shadow: 0 12px 30px -18px var(--sa-shadow);
+}
+
+.sa-continue-discipline {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sa-primary);
+}
+
+.sa-continue-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sa-continue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--sa-primary);
+  color: var(--sa-primary-fg);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.sa-continue-btn:hover {
+  background: var(--sa-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* ---------------------------- Acesso rápido ---------------------------- */
+
+.sa-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sa-quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--sa-bg-elevated);
+  border: 1px solid var(--sa-border);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.sa-quick-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--sa-primary);
+  box-shadow: 0 14px 30px -20px var(--sa-shadow);
+}
+
+.sa-quick-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--sa-primary-tint);
+  color: var(--sa-primary);
+}
+
+.sa-quick-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.sa-quick-title {
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+.sa-quick-desc {
+  font-size: 12.5px;
+  color: var(--sa-fg-muted);
+  line-height: 1.4;
+}
+
+/* ---------------------------- Filtros ---------------------------- */
+
+.sa-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sa-filter {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--sa-border-strong);
+  background: var(--sa-bg-elevated);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sa-fg-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.sa-filter:hover {
+  border-color: var(--sa-primary);
+}
+
+.sa-filter.active {
+  background: var(--sa-primary);
+  border-color: var(--sa-primary);
+  color: var(--sa-primary-fg);
+}
+
+/* ---------------------------- Lista de materiais ---------------------------- */
+
+.sa-material-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sa-material {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--sa-bg-elevated);
+  border: 1px solid var(--sa-border);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.sa-material:hover {
+  border-color: var(--sa-border-strong);
+  box-shadow: 0 10px 24px -20px var(--sa-shadow);
+}
+
+.sa-material-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--sa-primary-tint);
+  color: var(--sa-primary);
+  flex-shrink: 0;
+}
+
+.sa-material-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sa-material-video .sa-material-icon {
+  background: rgba(255, 190, 11, 0.16);
+  color: #b8860b;
+}
+
+.student-area[data-theme="dark"] .sa-material-video .sa-material-icon {
+  color: var(--sa-accent);
+}
+
+.sa-material-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.sa-material-title {
+  margin: 0 0 4px;
+  font-size: 14.5px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sa-material-meta {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--sa-fg-muted);
+}
+
+.sa-material-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.sa-favorite-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 0;
+  background: none;
+  color: var(--sa-fg-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sa-favorite-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+.sa-favorite-btn:hover {
+  background: var(--sa-bg-subtle);
+}
+
+.sa-favorite-btn-active {
+  color: var(--sa-danger);
+}
+
+.sa-favorite-btn-active svg {
+  fill: currentColor;
+}
+
+.sa-material-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--sa-primary);
+  color: var(--sa-primary-fg);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.sa-material-cta:hover {
+  background: var(--sa-primary-hover);
+  transform: translateY(-1px);
+}
+
+.sa-material-cta svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---------------------------- Disciplinas ---------------------------- */
+
+.sa-discipline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sa-discipline-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--sa-bg-elevated);
+  border: 1px solid var(--sa-border);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.sa-discipline-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--sa-primary);
+  box-shadow: 0 14px 30px -20px var(--sa-shadow);
+}
+
+.sa-discipline-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--sa-primary-tint);
+  color: var(--sa-primary);
+}
+
+.sa-discipline-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.sa-discipline-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.sa-discipline-count {
+  font-size: 12.5px;
+  color: var(--sa-fg-muted);
+}
+
+/* ---------------------------- Cadernos ---------------------------- */
+
+.sa-notebook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sa-notebook-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--sa-bg-elevated);
+  border: 1px solid var(--sa-border);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.sa-notebook-card:hover {
+  border-color: var(--sa-primary);
+  box-shadow: 0 10px 24px -20px var(--sa-shadow);
+}
+
+.sa-notebook-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--sa-primary-tint);
+  color: var(--sa-primary);
+  flex-shrink: 0;
+}
+
+.sa-notebook-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.sa-notebook-name {
+  flex: 1;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+.sa-notebook-count {
+  font-size: 12.5px;
+  color: var(--sa-fg-muted);
+}
+
+/* ---------------------------- Busca ---------------------------- */
+
+.sa-search-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sa-search-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--sa-bg-elevated);
+  border: 1px solid var(--sa-border);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sa-search-chip svg {
+  width: 15px;
+  height: 15px;
+  color: var(--sa-primary);
+}
+
+/* ---------------------------- Estado vazio ---------------------------- */
+
+.sa-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 56px 24px;
+  border-radius: 20px;
+  border: 1px dashed var(--sa-border-strong);
+  color: var(--sa-fg-muted);
+}
+
+.sa-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--sa-bg-subtle);
+  color: var(--sa-fg-muted);
+  margin-bottom: 10px;
+}
+
+.sa-empty-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sa-empty-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sa-fg);
+}
+
+.sa-empty-desc {
+  margin: 0;
+  font-size: 13.5px;
+  max-width: 320px;
+}
+
+/* ---------------------------- Cards simples (plano/config/perfil) ---------------------------- */
+
+.sa-plain-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--sa-bg-elevated);
+  border: 1px solid var(--sa-border);
+  max-width: 420px;
+}
+
+.sa-plain-card-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sa-primary);
+}
+
+.sa-plain-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sa-plain-card-desc {
+  margin: 0;
+  font-size: 14px;
+  color: var(--sa-fg-muted);
+  line-height: 1.5;
+}
+
+.sa-plain-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: var(--sa-primary);
+  color: var(--sa-primary-fg);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.sa-plain-card-cta:hover {
+  background: var(--sa-primary-hover);
+}
+
+.sa-plain-card-cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sa-profile-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--sa-primary-tint);
+  color: var(--sa-primary);
+  margin-bottom: 4px;
+}
+
+.sa-profile-avatar svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* ================================ Responsivo ================================ */
+
+@media (max-width: 1080px) {
+  .student-area {
+    grid-template-columns: 1fr;
+  }
+
+  .sa-sidebar-desktop {
+    display: none;
+  }
+
+  .sa-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sa-sidebar-overlay {
+    display: block;
+  }
+
+  .sa-sidebar-mobile {
+    position: fixed;
+    inset: 0 20% 0 0;
+    z-index: 61;
+    max-width: 300px;
+    box-shadow: 20px 0 50px var(--sa-shadow);
+  }
+
+  .sa-sidebar-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    border: 0;
+    background: var(--sa-bg-subtle);
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: -8px;
+  }
+
+  .sa-quick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sa-discipline-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .sa-header {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .sa-profile-name {
+    display: none;
+  }
+
+  .sa-content {
+    padding: 20px 16px 40px;
+  }
+
+  .sa-quick-grid,
+  .sa-discipline-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sa-continue-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sa-continue-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sa-material {
+    flex-wrap: wrap;
+  }
+
+  .sa-material-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .sa-page-heading {
+    align-items: flex-start;
+  }
+}

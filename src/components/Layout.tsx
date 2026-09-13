@@ -11,9 +11,9 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUp,
-  BookOpen,
   Home,
   Instagram,
+  LogIn,
   Mail,
   MessageCircle,
   Menu,
@@ -26,6 +26,13 @@ import { trackEvent } from "./analytics";
 
 export const whatsapp = "https://wa.me/5583999999999";
 export const EASE = [0.16, 1, 0.3, 1] as const;
+
+/**
+ * Rota da área do aluno (login → materiais e videoaulas). Antes apontava
+ * para um portal externo; agora o login é resolvido dentro do próprio
+ * site (ver StudentLogin.tsx), então é um link interno normal.
+ */
+export const studentPortalUrl = "/login";
 
 /** Barra fina de progresso de leitura, fixa no topo — feedback sutil de onde o usuário está na página. */
 export function ScrollProgress() {
@@ -110,7 +117,6 @@ const NAV_LINKS = [
   { label: "Método", href: "#metodo", icon: Target },
   { label: "Professores", href: "#professores", icon: Users },
   { label: "Resultados", href: "#resultados", icon: Trophy },
-  { label: "Materiais", href: "/materiais", icon: BookOpen },
 ] as const;
 
 export function Navigation() {
@@ -119,7 +125,7 @@ export function Navigation() {
   const [active, setActive] = useState("#inicio");
   const isSubpage =
     typeof window !== "undefined" &&
-    (["/materiais", "/privacidade", "/termos"].includes(
+    (["/materiais", "/privacidade", "/termos", "/login"].includes(
       window.location.pathname,
     ) ||
       window.location.pathname.startsWith("/professor/"));
@@ -188,17 +194,39 @@ export function Navigation() {
               <span>{l.label}</span>
             </a>
           ))}
+          <a
+            href={studentPortalUrl}
+            className="nav-login"
+            onClick={() =>
+              trackEvent("student_login_click", { location: "desktop" })
+            }
+          >
+            <LogIn aria-hidden="true" />
+            <span>Entrar</span>
+          </a>
           <CTA>GARANTIR VAGA</CTA>
         </nav>
 
-        <button
-          className="menu-button"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X /> : <Menu />}
-        </button>
+        <div className="nav-actions-mobile">
+          <a
+            href={studentPortalUrl}
+            className="nav-login-mobile"
+            aria-label="Entrar na área do aluno"
+            onClick={() =>
+              trackEvent("student_login_click", { location: "mobile_compact" })
+            }
+          >
+            <LogIn aria-hidden="true" />
+          </a>
+          <button
+            className="menu-button"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
       </header>
 
       {/*
@@ -274,6 +302,26 @@ export function Navigation() {
                       </motion.a>
                     ))}
                   </motion.div>
+                  <motion.a
+                    href={studentPortalUrl}
+                    className="nav-drawer-login"
+                    onClick={() => {
+                      setOpen(false);
+                      trackEvent("student_login_click", {
+                        location: "mobile_drawer",
+                      });
+                    }}
+                    variants={{
+                      closed: { opacity: 0, y: 16 },
+                      open: { opacity: 1, y: 0 },
+                    }}
+                    initial="closed"
+                    animate="open"
+                    transition={{ delay: 0.26 }}
+                  >
+                    <LogIn aria-hidden="true" />
+                    <span>Entrar na área do aluno</span>
+                  </motion.a>
                   <motion.div
                     variants={{
                       closed: { opacity: 0, y: 16 },
@@ -341,7 +389,7 @@ export function Footer() {
           <a href="#metodo">Método</a>
           <a href="#professores">Professores</a>
           <a href="#resultados">Resultados</a>
-          <a href="/materiais">Materiais</a>
+          <a href={studentPortalUrl}>Área do Aluno</a>
         </div>
         <div className="footer-col">
           <strong>Contato</strong>

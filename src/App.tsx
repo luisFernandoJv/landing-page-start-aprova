@@ -17,10 +17,13 @@ import {
 } from "lucide-react";
 import { CTA, Footer, Navigation, Reveal } from "./components/Layout";
 import { teachers } from "./components/teachers";
-import { Materials } from "./components/Materials";
+
 import { TeacherProfile } from "./components/TeacherProfile";
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TermsOfService } from "./components/TermsOfService";
+import { StudentLogin } from "./components/StudentLogin";
+import { StudentArea } from "./components/student-area/StudentArea";
+import { isStudentAreaPath } from "./components/student-area/router";
 
 // Re-exportado para compatibilidade com componentes que ainda importam
 // trackEvent a partir de "../App" (ex: HeroSection, WhatsAppGroups, etc.)
@@ -432,7 +435,7 @@ const faqs = [
   },
   {
     q: "Como tenho acesso às aulas e materiais?",
-    a: "Os materiais ficam disponíveis tanto no grupo do WhatsApp da turma quanto no site institucional da Start Aprovação — a própria página em que você está agora.",
+    a: "Os materiais ficam disponíveis tanto no grupo do WhatsApp da turma quanto na Área do Aluno do nosso site, acessada com o seu CPF e senha.",
   },
   {
     q: "Quem são os professores?",
@@ -481,7 +484,8 @@ function FAQ() {
 
 export default function App() {
   const path = window.location.pathname;
-  if (path === "/materiais") return <Materials />;
+  if (path === "/login") return <StudentLogin />;
+  if (isStudentAreaPath(path)) return <StudentArea initialPath={path} />;
   if (path === "/privacidade") return <PrivacyPolicy />;
   if (path === "/termos") return <TermsOfService />;
   if (path.startsWith("/professor/")) {
