@@ -404,7 +404,16 @@ export function Navigation() {
   });
 
   // Esconde o header ao rolar para baixo, mostra ao rolar para cima
+  // (apenas no desktop — no mobile o nav permanece sempre visível)
   useMotionValueEvent(useScroll().scrollY, "change", (y) => {
+    const isMobile =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 767px)").matches;
+    if (isMobile) {
+      if (hidden) setHidden(false);
+      lastY.current = y;
+      return;
+    }
     const delta = y - lastY.current;
     if (Math.abs(delta) > 4) {
       setHidden(delta > 0 && y > 420 && !isOpen);
@@ -456,10 +465,11 @@ export function Navigation() {
         {/* ── Header principal ── */}
         <header
           className={`transition-all duration-300 border-b
+            bg-zinc-950/95 backdrop-blur-2xl border-zinc-800/80
             ${
               scrolled
-                ? "bg-zinc-950/85 backdrop-blur-2xl border-zinc-800/80 shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
-                : "bg-zinc-950/40 backdrop-blur-md border-transparent"
+                ? "md:bg-zinc-950/85 md:shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+                : "md:bg-zinc-950/40 md:backdrop-blur-md md:border-transparent"
             }`}
         >
           <div className="max-w-[1200px] mx-auto px-5 sm:px-6 flex items-center justify-between gap-4 py-3">
